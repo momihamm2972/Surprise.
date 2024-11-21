@@ -6,90 +6,52 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:41:28 by momihamm          #+#    #+#             */
-/*   Updated: 2024/11/19 20:55:31 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/11/21 19:29:25 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// import React from 'react';
-// import ReactDOM from 'react-dom/client';
+import React, { useEffect, useRef } from 'react';
+import './index.css'; // Import the CSS file
 
-// const root = ReactDOM.createRoot(document.getElementById('root'));
-// root.render(<h1>Hello, world!</h1>);
+const Canvas = (props) => {
+  const canvasRef = useRef(null);
 
-function MyButton()
-{
-  return(
-    <button>
-      lkmaya
-    </button>
+  // Dynamically resize the canvas to match its container size
+  useEffect(() => {
+    const resizeCanvas = () => {
+      const canvas = canvasRef.current;
+      // Set canvas width and height to match the container size
+      if (canvas) {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+      }
+    };
+
+    // Call the resize function on mount and when the window resizes
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} {...props} />;
+};
+
+function Back() {
+  return <div className="background"></div>;
+}
+
+function App() {
+  return (
+    <div className="relative">
+      <Back />
+      {/* Canvas with responsive width and height */}
+      <Canvas className="canvas" />
+    </div>
   );
 }
 
-// function back()
-// {
-//     return (
-//         <div style={{ backgroundColor: 'black', height : '100vh'}}>
-//             {/*  */}
-//         </div>
-//     );
-// }
-
-function Back() {
-    return (
-        // <div style={{ backgroundColor: '#020207', height: '100vh' }}>
-        <div style={{ 
-            background: `radial-gradient(circle at bottom, #020207 5%, transparent 80%), linear-gradient(to left, #020207, #1c3986, #020207)`,
-            height: '100vh' 
-        }}>
-            </div>
-    );
-}
-
-// function Back() {
-//     return (
-//         <div style={{
-//             background: `
-//                 radial-gradient(circle at top, black 50%, transparent 80%),
-//                 linear-gradient(to Left, black 30%, transparent 31%, transparent 80%, black 81%)`,
-//             height: '100vh'
-//         }}>
-//             {/* Your content goes here */}
-//         </div>
-//     );
-// }
-
-
-
-
-// function Back() {
-//     return (
-//         <div style={{ 
-//             background: 'conic-gradient(black 0deg 90deg, white 90deg 270deg, black 270deg 360deg)',
-//             height: '100vh',
-//             width: '100%',
-//             display: 'flex',
-//             justifyContent: 'center',
-//             alignItems: 'center'
-//         }}>
-//             {/* Your content goes here */}
-//         </div>
-//     );
-// }
-
-function App()
-{
-    // <MyButton />
-    return (
-        <div>
-            {/* LKMAYA */}
-            <Back />
-            {/* <MyButton /> */}
-        </div>
-    );
-}
-
 export default App;
-
-
-
-// }
