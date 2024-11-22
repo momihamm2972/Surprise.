@@ -6,39 +6,41 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 12:41:28 by momihamm          #+#    #+#             */
-/*   Updated: 2024/11/21 19:29:25 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/11/22 21:48:39 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-import React, { useEffect, useRef } from 'react';
+// import React, { useEffect, useRef } from 'react';
 import './index.css'; // Import the CSS file
+import Canvas from './canvas';
+// import { Engine, Render, Runner, Bodies, World } from 'matter-js';
 
-const Canvas = (props) => {
-  const canvasRef = useRef(null);
+// const Canvas = (props) => {
+//   const canvasRef = useRef(null);
 
-  // Dynamically resize the canvas to match its container size
-  useEffect(() => {
-    const resizeCanvas = () => {
-      const canvas = canvasRef.current;
-      // Set canvas width and height to match the container size
-      if (canvas) {
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
-      }
-    };
+//   // Dynamically resize the canvas to match its container size
+//   useEffect(() => {
+//     const resizeCanvas = () => {
+//       const canvas = canvasRef.current;
+//       // Set canvas width and height to match the container size
+//       if (canvas) {
+//         canvas.width = canvas.offsetWidth;
+//         canvas.height = canvas.offsetHeight;
+//       }
+//     };
 
-    // Call the resize function on mount and when the window resizes
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+//     // Call the resize function on mount and when the window resizes
+//     resizeCanvas();
+//     window.addEventListener('resize', resizeCanvas);
 
-    // Cleanup the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('resize', resizeCanvas);
-    };
-  }, []);
+//     // Cleanup the event listener when the component unmounts
+//     return () => {
+//       window.removeEventListener('resize', resizeCanvas);
+//     };
+//   }, []);
 
-  return <canvas ref={canvasRef} {...props} />;
-};
+//   return <canvas ref={canvasRef} {...props} />;
+// };
 
 function Back() {
   return <div className="background"></div>;
