@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 17:16:16 by momihamm          #+#    #+#             */
-/*   Updated: 2024/11/22 22:14:06 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/11/23 23:28:37 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@
 
   
   /* Canvas Styles */
-  /* .canvas {
-      /* border: 10px solid red; */
-      /* position: absolute;
-      top: 2%;
-      left: 10%;
-      width: 60%; Full width */
-      /* height: 30vh; Default height of 80vh */
-      /* background-color: rgba(47, 71, 140, 255); */
+/* .canvas { */
+  /* position: absolute; */
+  /* top: 10%; */
+  /* left: 30%; */
+  /*width: 60%; /* Full width */
+  /*height: 30vh; /*Default height of 80vh*/
+  /* border: 10px solid red; */
+  /* background-color: rgba(0, 0, 0, 0); */
       /* filter: blur(50px); */
       /* border-radius: 15px; */
-    /*
+  /* } */
   
   /* Responsive Canvas Height */
   /* @media (min-width: 640px) { */
