@@ -6,12 +6,13 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:42:58 by momihamm          #+#    #+#             */
-/*   Updated: 2024/11/24 00:24:34 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/11/24 00:41:20 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 import React from 'react';
 import Sketch from 'react-p5';
+import { Paddle, Ball } from './gameobjects';
 
 const Canvas = () => {
   // let playerX = 100; // Player's X position
@@ -34,11 +35,21 @@ const Canvas = () => {
     // fill(255);
 
     // // Optional: Set a smoother frame rate
-    // p5.frameRate(60);
+    p5.frameRate(60);
   };
 
   const draw = (p5) => {
     p5.background('#ffffff');
+    p5.rectMode(p5.CENTER);
+    p5.fill(255, 0, 0);
+    p5.noStroke();
+    p5.textSize(40);
+    p5.textAlign(p5.CENTER);
+    p5.rect(p5.width / 2, p5.height / 2, 100, 50); // Draw a centered rectangle
+    p5.fill(0, 0, 0);
+    p5.text("Hello!", p5.width / 2, p5.height / 2); // Draw centered text
+    
+    // gpt things ##################
     // p5.background(30); // Dark background color
     // p5.fill(200, 0, 0); // Player color
     // p5.rect(playerX, playerY, 50, 50); // Draw player rectangle
