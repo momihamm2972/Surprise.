@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 22:25:20 by momihamm          #+#    #+#             */
-/*   Updated: 2024/11/23 22:43:07 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/11/24 17:43:07 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ export class Paddle {
   }
 
   // Method to draw the paddle
-  draw(p5) {
+  show(p5) {
     p5.rect(this.x, this.y, this.width, this.height);
   }
 
@@ -44,9 +44,15 @@ export class Ball {
   }
 
   // Method to draw the ball
-  draw(p5) {
+  show(p5) {
+    p5.fill(255);
     p5.ellipse(this.x, this.y, this.radius * 2);
   }
+  // show(p5) {
+  //   // p5.ellipse(this.x, this.y, this.radius * 2);
+  //   p5.fill(255);
+  //   p5.square(this.x, this.y, this.radius * 2, this.radius);
+  // }
 
   // Method to update the ball's position
 //   update(p5) {

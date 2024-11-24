@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:42:58 by momihamm          #+#    #+#             */
-/*   Updated: 2024/11/24 00:41:20 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/11/24 18:07:15 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@ import Sketch from 'react-p5';
 import { Paddle, Ball } from './gameobjects';
 
 const Canvas = () => {
-  // let playerX = 100; // Player's X position
-  // let playerY = 100; // Player's Y position
-  // let playerSpeed = 5; // Speed of player movement
+  let leftPaddle, rightPaddle, ball, leftScore, rightScore;
+
 
   const setup = (p5, canvasParentRef) => {
     const canvasWidth = p5.windowWidth * 0.4; // 80% of window width
@@ -29,36 +28,31 @@ const Canvas = () => {
     canvas.style('top', '2%');          // Move 20% down
     canvas.style('left', '20%');         // Move 10% to the right
     canvas.style('border-radius', '15px');
-    // Add blur effect
-    // canvas.style('filter', 'blur(100px)'); // Adjust blur intensity as needed
-    // canvas.elt.style.filter = 'blur(5px)';
-    // fill(255);
-
-    // // Optional: Set a smoother frame rate
+    leftPaddle = new Paddle(5 , ((p5.windowHeight * 0.3) / 2) - 50, 20, 100, 10);
+    rightPaddle = new Paddle((p5.windowWidth * 0.4) - 25, ((p5.windowHeight * 0.3) / 2) - 50, 20, 100, 10);
+    ball = new Ball(canvasWidth / 2, canvasHeight / 2, 15, 0, 0);
+    leftScore = 0;
+    rightScore = 0;
     p5.frameRate(60);
   };
 
   const draw = (p5) => {
-    p5.background('#ffffff');
-    p5.rectMode(p5.CENTER);
-    p5.fill(255, 0, 0);
-    p5.noStroke();
-    p5.textSize(40);
-    p5.textAlign(p5.CENTER);
-    p5.rect(p5.width / 2, p5.height / 2, 100, 50); // Draw a centered rectangle
-    p5.fill(0, 0, 0);
-    p5.text("Hello!", p5.width / 2, p5.height / 2); // Draw centered text
-    
-    // gpt things ##################
-    // p5.background(30); // Dark background color
-    // p5.fill(200, 0, 0); // Player color
-    // p5.rect(playerX, playerY, 50, 50); // Draw player rectangle
+    p5.background('#000000');
 
-    // // Example: Simple boundaries
-    // if (playerX < 0) playerX = 0;
-    // if (playerX + 50 > p5.width) playerX = p5.width - 50;
-    // if (playerY < 0) playerY = 0;
-    // if (playerY + 50 > p5.height) playerY = p5.height - 50;
+    // Set up text properties
+    p5.fill(255); // White color for the text
+    p5.noStroke(); // No border around the text
+    p5.textSize(p5.width * 0.1); // Text size relative to canvas width
+    p5.textAlign(p5.CENTER, p5.CENTER); // Center align text
+
+    // Draw the scores
+    p5.text(leftScore, p5.width * 0.25, p5.height * 0.1); // Left score at 25% width
+    p5.text(rightScore, p5.width * 0.75, p5.height * 0.1); // Right score at 75% width
+
+
+    leftPaddle.show(p5);
+    rightPaddle.show(p5);
+    ball.show(p5);
   };
 
   const keyPressed = (p5) => {
