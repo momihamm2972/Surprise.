@@ -6,22 +6,23 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 22:25:20 by momihamm          #+#    #+#             */
-/*   Updated: 2024/11/24 17:43:07 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/11/24 19:15:03 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 export class Paddle {
-  constructor(x, y, width, height, speed) {
+  constructor(x, y, width, height, speed, bord) {
     this.x = x; // Paddle's x position
     this.y = y; // Paddle's y position
     this.width = width; // Paddle's width
     this.height = height; // Paddle's height
     this.speed = speed; // Paddle's movement speed
+    this.bord = bord;
   }
 
   // Method to draw the paddle
   show(p5) {
-    p5.rect(this.x, this.y, this.width, this.height);
+    p5.rect(this.x, this.y, this.width, this.height, this.bord);
   }
 
   // Method to move the paddle

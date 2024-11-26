@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:42:58 by momihamm          #+#    #+#             */
-/*   Updated: 2024/11/24 18:07:15 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:31:12 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,37 +17,76 @@ import { Paddle, Ball } from './gameobjects';
 const Canvas = () => {
   let leftPaddle, rightPaddle, ball, leftScore, rightScore;
 
+  let paddleWidth = 0;//= p5.width * 0.02; // 2% of canvas width
+  let paddleHeight = 0;// = p5.height * 0.2; // 20% of canvas height
+  let ballRadius = 0;// p5.width * 0.02; // 2% of canvas width
+  let actuWindow;
+
+
+
 
   const setup = (p5, canvasParentRef) => {
-    const canvasWidth = p5.windowWidth * 0.4; // 80% of window width
-    const canvasHeight = p5.windowHeight * 0.3; // 80% of window height
+    const canvasWidth = p5.windowWidth * 0.6; // 80% of window width
+    const canvasHeight = p5.windowHeight * 0.4; // 80% of window height
     const canvas = p5.createCanvas(canvasWidth, canvasHeight).parent(canvasParentRef);
+    paddleWidth = p5.width * 0.01; // 2% of canvas width
+    paddleHeight = p5.height * 0.2; // 20% of canvas height
+    ballRadius = p5.width * 0.02; // 2% of canvas width
+    actuWindow = p5.windowWidth;
+
+
     
     // Position the canvas
     canvas.style('position', 'absolute'); // Use absolute positioning
     canvas.style('top', '2%');          // Move 20% down
-    canvas.style('left', '20%');         // Move 10% to the right
+    canvas.style('left', '10%');         // Move 10% to the right
     canvas.style('border-radius', '15px');
-    leftPaddle = new Paddle(5 , ((p5.windowHeight * 0.3) / 2) - 50, 20, 100, 10);
-    rightPaddle = new Paddle((p5.windowWidth * 0.4) - 25, ((p5.windowHeight * 0.3) / 2) - 50, 20, 100, 10);
-    ball = new Ball(canvasWidth / 2, canvasHeight / 2, 15, 0, 0);
-    leftScore = 0;
-    rightScore = 0;
+    canvas.style('border', '2px dashed white');
+    // leftPaddle = new Paddle(p5.width * 0.05 , p5.height * 0.4, paddleWidth, paddleHeight, 10, 10);
+    // rightPaddle = new Paddle(p5.width * 0.95 - paddleWidth, p5.height * 0.4, paddleWidth, paddleHeight, 10, 10);
+    // ball = new Ball(p5.width * 0.5, p5.height * 0.5, ballRadius, 0, 0);
+    leftScore = 2;
+    rightScore = 8;
     p5.frameRate(60);
   };
 
   const draw = (p5) => {
     p5.background('#000000');
+    //draw the border 
+    // Set border style
+    // p5.noFill();
+    // p5.stroke(255); // Border color (white in this case)
+    // p5.line((p5.width / 2), 0, (p5.width / 2), p5.height); // Vertical line from top to bottom
+    // Intermittent line in the middle
+    const centerX = p5.width / 2; // Center of the canvas
+    p5.stroke(255);               // Set line color to white
+    p5.strokeWeight(2);           // Set line thickness
+    
+    // Loop to draw dashes
+    const dashHeight = 2;        // Height of each dash
+    const gapHeight = 5;         // Gap between dashes
+    for (let y = 0; y < p5.height; y += dashHeight + gapHeight) {
+      p5.line(centerX, y, centerX, y + dashHeight); // Draw each dash
+    }
+    // p5.strokeWeight(5); // Border thickness
+    // canvas.style('border', '10px solid red');
+    
+    // Draw the border rectangle
+    // p5.rect(0, 0, p5.width, p5.height);
 
     // Set up text properties
     p5.fill(255); // White color for the text
     p5.noStroke(); // No border around the text
     p5.textSize(p5.width * 0.1); // Text size relative to canvas width
     p5.textAlign(p5.CENTER, p5.CENTER); // Center align text
+    // draw the paddles and the ball
+    leftPaddle = new Paddle(p5.width * 0.01 , p5.height * 0.4, paddleWidth, paddleHeight, 10, 10);
+    rightPaddle = new Paddle(p5.width * 0.99 - paddleWidth, p5.height * 0.4, paddleWidth, paddleHeight, 10, 10);
+    ball = new Ball(p5.width * 0.5, p5.height * 0.5, ballRadius, 0, 0);
 
     // Draw the scores
-    p5.text(leftScore, p5.width * 0.25, p5.height * 0.1); // Left score at 25% width
-    p5.text(rightScore, p5.width * 0.75, p5.height * 0.1); // Right score at 75% width
+    p5.text(leftScore, p5.width * 0.25, p5.height * 0.2); // Left score at 25% width
+    p5.text(rightScore, p5.width * 0.75, p5.height * 0.2); // Right score at 75% width
 
 
     leftPaddle.show(p5);
@@ -65,8 +104,20 @@ const Canvas = () => {
 
   const windowResized = (p5) => {
     // Adjust the canvas size dynamically on window resize
-    const canvasWidth = p5.windowWidth * 0.4; // 80% of window width
-    const canvasHeight = p5.windowHeight * 0.3; // 60% of window height
+    let modulo = 0.4;
+    const canvasWidth = p5.windowWidth * 0.6; // 80% of window width
+    if (actuWindow > p5.windowWidth)
+    {
+      console.log ("weyawrahi m9ewda");
+      if (modulo < 0.6)
+        modulo += 0.1;
+    }
+    else
+    {
+      if (modulo > 0.4)
+        modulo -= 0.1;
+    }
+    const canvasHeight = p5.windowHeight * modulo; // 60% of window height
     p5.resizeCanvas(canvasWidth, canvasHeight);
   };
 
