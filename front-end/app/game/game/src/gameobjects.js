@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 22:25:20 by momihamm          #+#    #+#             */
-/*   Updated: 2024/11/27 03:27:36 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/11/27 03:38:38 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,6 @@ export class Paddle {
   show(p5) {
     p5.rect(this.x, this.y, this.width, this.height, this.bord);
   }
-
-  // Method to move the paddle
-//   move(direction, p5) {
-    // Direction: -1 (up), 1 (down)
-    // this.y += direction * this.speed;
-
-    // Ensure the paddle stays within the canvas
-    // this.y = p5.constrain(this.y, 0, p5.height - this.height);
-//   }
 }
 
 export class Ball {
@@ -50,11 +41,6 @@ export class Ball {
     p5.fill(255);
     p5.ellipse(this.x, this.y, this.radius * 2);
   }
-  // show(p5) {
-  //   // p5.ellipse(this.x, this.y, this.radius * 2);
-  //   p5.fill(255);
-  //   p5.square(this.x, this.y, this.radius * 2, this.radius);
-  // }
 
   move(p5, leftPaddle, rightPaddle) {
     this.x += this.speedX;
@@ -95,24 +81,5 @@ export class Ball {
     this.y = p5.height / 2;
     this.speedX *= -1; // Start moving towards the scoring player
   }
-  
 
-  
-  // Method to update the ball's position
-//   update(p5) {
-//     this.x += this.speedX;
-//     this.y += this.speedY;
-
-    // Check for collisions with the top and bottom borders
-    // if (this.y - this.radius < 0 || this.y + this.radius > p5.height) {
-    //   this.speedY *= -1; // Reverse vertical direction
-    // }
-//   }
-
-  // Method to reset the ball's position
-//   reset(p5) {
-//     this.x = p5.width / 2;
-//     this.y = p5.height / 2;
-//     this.speedX *= -1; // Reverse horizontal direction
-//   }
 }
