@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 22:25:20 by momihamm          #+#    #+#             */
-/*   Updated: 2024/11/24 19:15:03 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/11/27 03:20:48 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,48 @@ export class Ball {
   //   p5.square(this.x, this.y, this.radius * 2, this.radius);
   // }
 
+  move(p5, leftPaddle, rightPaddle) {
+    this.x += this.speedX;
+    this.y += this.speedY;
+  
+    // Bounce off top and bottom edges
+    if (this.y - this.radius <= 0 || this.y + this.radius >= p5.height) {
+      this.speedY *= -1;
+    }
+  
+    // Bounce off paddles
+    if (
+      this.x - this.radius <= leftPaddle.x + leftPaddle.width && // Left paddle
+      this.y >= leftPaddle.y &&
+      this.y <= leftPaddle.y + leftPaddle.height
+    ) {
+      this.speedX *= -1;
+    } else if (
+      this.x + this.radius >= rightPaddle.x && // Right paddle
+      this.y >= rightPaddle.y &&
+      this.y <= rightPaddle.y + rightPaddle.height
+    ) {
+      this.speedX *= -1;
+    }
+  
+    // Reset ball if it goes out of bounds
+    if (this.x - this.radius <= 0) {
+      // rightScore++; // Right player scores
+      this.reset(p5);
+    } else if (this.x + this.radius >= p5.width) {
+      // leftScore++; // Left player scores
+      this.reset(p5);
+    }
+  }
+  
+  reset(p5) {
+    this.x = p5.width / 2;
+    this.y = p5.height / 2;
+    this.speedX *= -1; // Start moving towards the scoring player
+  }
+  
+
+  
   // Method to update the ball's position
 //   update(p5) {
 //     this.x += this.speedX;

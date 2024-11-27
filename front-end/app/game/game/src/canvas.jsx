@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:42:58 by momihamm          #+#    #+#             */
-/*   Updated: 2024/11/27 02:56:48 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/11/27 03:21:03 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,20 @@ const Canvas = () => {
   let paddleWidth = 0;//= p5.width * 0.02; // 2% of canvas width
   let paddleHeight = 0;// = p5.height * 0.2; // 20% of canvas height
   let ballRadius = 0;// p5.width * 0.02; // 2% of canvas width
-  let actuWindow;
+  // let actuWindow;
 
 
 
 
   const setup = (p5, canvasParentRef) => {
     const canvasWidth = p5.windowWidth * 0.6; // 80% of window width
-    const canvasHeight = p5.windowHeight * 0.4; // 80% of window height
+    const canvasHeight = p5.windowHeight * 0.5; // 80% of window height
     const canvas = p5.createCanvas(canvasWidth, canvasHeight).parent(canvasParentRef);
     paddleWidth = canvasWidth * 0.01; // 2% of canvas width
     paddleHeight = canvasHeight * 0.2; // 20% of canvas height
     ballRadius = canvasWidth * 0.02; // 2% of canvas width
-    actuWindow = p5.windowWidth;
-    let ballSpeed = canvasWidth * 0.05;
+    // actuWindow = p5.windowWidth;
+    let ballSpeed = canvasWidth * 0.005;
 
 
     
@@ -118,6 +118,7 @@ const Canvas = () => {
     // paddleWidth = p5.width * 0.01;
     leftPaddle.show(p5);
     rightPaddle.show(p5);
+    ball.move(p5, leftPaddle, rightPaddle);
     ball.show(p5);
   };
 
@@ -132,7 +133,7 @@ const Canvas = () => {
 
   const windowResized = (p5) => {
     // Adjust the canvas size dynamically on window resize
-    let modulo = 0.4;
+    let modulo = 0.5;
     const canvasWidth = p5.windowWidth * 0.6; // 80% of window width
     // const radiusBall = canvasWidth * 0.02;
     // const speedBall = canvasWidth * 0.05;
