@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:42:58 by momihamm          #+#    #+#             */
-/*   Updated: 2024/11/27 03:21:03 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/11/27 03:31:07 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ const Canvas = () => {
     ballRadius = canvasWidth * 0.02; // 2% of canvas width
     // actuWindow = p5.windowWidth;
     let ballSpeed = canvasWidth * 0.005;
+    let initScore = 0;
 
 
     
@@ -46,11 +47,11 @@ const Canvas = () => {
     // leftPaddle = new Paddle(p5.width * 0.05 , p5.height * 0.4, paddleWidth, paddleHeight, 10, 10);
     // rightPaddle = new Paddle(p5.width * 0.95 - paddleWidth, p5.height * 0.4, paddleWidth, paddleHeight, 10, 10);
     // ball = new Ball(p5.width * 0.5, p5.height * 0.5, ballRadius, 0, 0);
-    leftPaddle = new Paddle(p5.width * 0.01 , p5.height * 0.4, paddleWidth, paddleHeight, 10, 10);
-    rightPaddle = new Paddle(p5.width * 0.99 - paddleWidth, p5.height * 0.4, paddleWidth, paddleHeight, 10, 10);
+    // leftScore = 0;
+    // rightScore = 0;
+    leftPaddle = new Paddle(p5.width * 0.01 , p5.height * 0.4, paddleWidth, paddleHeight, 10, 10, initScore);
+    rightPaddle = new Paddle(p5.width * 0.99 - paddleWidth, p5.height * 0.4, paddleWidth, paddleHeight, 10, 10, initScore);
     ball = new Ball(canvasWidth * 0.5, canvasHeight * 0.5, ballRadius, ballSpeed, ballSpeed);
-    leftScore = 2;
-    rightScore = 8;
     p5.frameRate(60);
   };
 
@@ -110,15 +111,15 @@ const Canvas = () => {
     // ball = new Ball(p5.width * 0.5, p5.height * 0.5, ballRadius, 0, 0);
 
     // Draw the scores
-    p5.text(leftScore, p5.width * 0.25, p5.height * 0.2); // Left score at 25% width
-    p5.text(rightScore, p5.width * 0.75, p5.height * 0.2); // Right score at 75% width
     // paddleWidth = p5.width * 0.01;
-
+    
     handlePaddleMovement(p5);
     // paddleWidth = p5.width * 0.01;
     leftPaddle.show(p5);
     rightPaddle.show(p5);
     ball.move(p5, leftPaddle, rightPaddle);
+    p5.text(leftPaddle.score, p5.width * 0.25, p5.height * 0.2); // Left score at 25% width
+    p5.text(rightPaddle.score, p5.width * 0.75, p5.height * 0.2); // Right score at 75% width
     ball.show(p5);
   };
 

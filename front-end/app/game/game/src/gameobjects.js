@@ -6,18 +6,19 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 22:25:20 by momihamm          #+#    #+#             */
-/*   Updated: 2024/11/27 03:20:48 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/11/27 03:27:36 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 export class Paddle {
-  constructor(x, y, width, height, speed, bord) {
+  constructor(x, y, width, height, speed, bord, score) {
     this.x = x; // Paddle's x position
     this.y = y; // Paddle's y position
     this.width = width; // Paddle's width
     this.height = height; // Paddle's height
     this.speed = speed; // Paddle's movement speed
     this.bord = bord;
+    this.score = score;
   }
 
   // Method to draw the paddle
@@ -81,10 +82,10 @@ export class Ball {
   
     // Reset ball if it goes out of bounds
     if (this.x - this.radius <= 0) {
-      // rightScore++; // Right player scores
+      rightPaddle.score++;// rightScore++; // Right player scores
       this.reset(p5);
     } else if (this.x + this.radius >= p5.width) {
-      // leftScore++; // Left player scores
+      leftPaddle.score++;// leftScore++; // Left player scores
       this.reset(p5);
     }
   }
