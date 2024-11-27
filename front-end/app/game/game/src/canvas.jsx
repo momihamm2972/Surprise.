@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:42:58 by momihamm          #+#    #+#             */
-/*   Updated: 2024/11/27 03:37:59 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/11/27 19:21:29 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,18 @@ import { Paddle, Ball } from './gameobjects';
 
 const Canvas = () => {
   let leftPaddle, rightPaddle, ball;
-
   let paddleWidth = 0;//= p5.width * 0.02; // 2% of canvas width
   let paddleHeight = 0;// = p5.height * 0.2; // 20% of canvas height
   let ballRadius = 0;// p5.width * 0.02; // 2% of canvas width
+  let initAngle = 0;
+  // let constBallSpeed = ballSpeed;
   
   const setup = (p5, canvasParentRef) => {
     const canvasWidth = p5.windowWidth * 0.6; // 80% of window width
     const canvasHeight = p5.windowHeight * 0.5; // 80% of window height
     const canvas = p5.createCanvas(canvasWidth, canvasHeight).parent(canvasParentRef);
-    let ballSpeed = canvasWidth * 0.005;
     let initScore = 0;
+    let ballSpeed = 10 ;
     paddleWidth = canvasWidth * 0.01; // 2% of canvas width
     paddleHeight = canvasHeight * 0.2; // 20% of canvas height
     ballRadius = canvasWidth * 0.02; // 2% of canvas width
@@ -38,15 +39,15 @@ const Canvas = () => {
     canvas.style('border', '2px dashed white');
     leftPaddle = new Paddle(p5.width * 0.01 , p5.height * 0.4, paddleWidth, paddleHeight, 10, 10, initScore);
     rightPaddle = new Paddle(p5.width * 0.99 - paddleWidth, p5.height * 0.4, paddleWidth, paddleHeight, 10, 10, initScore);
-    ball = new Ball(canvasWidth * 0.5, canvasHeight * 0.5, ballRadius, ballSpeed, ballSpeed);
+    ball = new Ball(canvasWidth * 0.5, canvasHeight * 0.5, ballRadius, ballSpeed, 0, initAngle, canvasWidth, ballSpeed);
     p5.frameRate(60);
   };
 
   const handlePaddleMovement = (p5) => {
-    console.log("whach dkhel be3da");
+    // console.log("whach dkhel be3da");
     // Move left paddle with W (up) and S (down)
     if (p5.keyIsDown(87)) { // 'W' key
-      console.log("W");
+      // console.log("W");
       leftPaddle.y = Math.max(0, leftPaddle.y - leftPaddle.speed); // Prevent moving out of bounds
     }
     if (p5.keyIsDown(83)) { // 'S' key
@@ -82,6 +83,14 @@ const Canvas = () => {
     handlePaddleMovement(p5);
     leftPaddle.show(p5);
     rightPaddle.show(p5);
+    // if (! ball.speedY === 0)
+    // {
+    // if (ball.speedY < 0)
+    //   ball.speedY = ballSpeed * -1;
+    // else
+    //   ball.speedY = ballSpeed;
+    // }
+    // ball.speedX = ballSpeed;
     ball.move(p5, leftPaddle, rightPaddle);
     p5.text(leftPaddle.score, p5.width * 0.25, p5.height * 0.2); // Left score at 25% width
     p5.text(rightPaddle.score, p5.width * 0.75, p5.height * 0.2); // Right score at 75% width

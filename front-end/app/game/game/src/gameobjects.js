@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 22:25:20 by momihamm          #+#    #+#             */
-/*   Updated: 2024/11/27 03:38:38 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/11/27 19:31:36 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,16 @@ export class Paddle {
 }
 
 export class Ball {
-  constructor(x, y, radius, speedX, speedY) {
+  constructor(x, y, radius, speedX, speedY, angle, canvasW, constSpeed) {
     this.x = x; // Ball's x position
     this.y = y; // Ball's y position
     this.radius = radius; // Ball's radius
     this.speedX = speedX; // Horizontal speed
     this.speedY = speedY; // Vertical speed
+    this.angle = angle;
+    this.canvasW = canvasW;
+    this.constSpeed = constSpeed;
+    // this.genSpeed = genSpeed;
   }
 
   // Method to draw the ball
@@ -57,13 +61,31 @@ export class Ball {
       this.y >= leftPaddle.y &&
       this.y <= leftPaddle.y + leftPaddle.height
     ) {
-      this.speedX *= -1;
+      let pointOfColl, dirction;
+      pointOfColl = this.y - (leftPaddle.y + (leftPaddle.height / 2));
+      pointOfColl /= (leftPaddle.height / 2);
+      this.angle = pointOfColl * (Math.PI / 4);
+      if (this.x > (this.canvasW /2))
+        dirction = -1;
+      else
+        dirction = 1;
+      this.speedX = dirction * this.constSpeed * Math.cos(this.angle);
+      this.speedY =  Math.sin(this.angle) * this.constSpeed;
     } else if (
       this.x + this.radius >= rightPaddle.x && // Right paddle
       this.y >= rightPaddle.y &&
       this.y <= rightPaddle.y + rightPaddle.height
     ) {
-      this.speedX *= -1;
+      let pointOfColl, dirction;
+      pointOfColl = this.y - (rightPaddle.y + (rightPaddle.height / 2));
+      pointOfColl /= (rightPaddle.height / 2);
+      this.angle = pointOfColl * (Math.PI / 4);
+      if (this.x > (this.canvasW /2))
+        dirction = -1;
+      else
+        dirction = 1;
+        this.speedX = dirction * this.constSpeed * Math.cos(this.angle);
+        this.speedY =  Math.sin(this.angle) * this.constSpeed;
     }
   
     // Reset ball if it goes out of bounds
