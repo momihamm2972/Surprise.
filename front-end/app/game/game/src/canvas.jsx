@@ -6,7 +6,7 @@
 /*   By: momihamm <momihamm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:42:58 by momihamm          #+#    #+#             */
-/*   Updated: 2024/11/25 18:31:12 by momihamm         ###   ########.fr       */
+/*   Updated: 2024/11/27 02:56:48 by momihamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ const Canvas = () => {
     const canvasWidth = p5.windowWidth * 0.6; // 80% of window width
     const canvasHeight = p5.windowHeight * 0.4; // 80% of window height
     const canvas = p5.createCanvas(canvasWidth, canvasHeight).parent(canvasParentRef);
-    paddleWidth = p5.width * 0.01; // 2% of canvas width
-    paddleHeight = p5.height * 0.2; // 20% of canvas height
-    ballRadius = p5.width * 0.02; // 2% of canvas width
+    paddleWidth = canvasWidth * 0.01; // 2% of canvas width
+    paddleHeight = canvasHeight * 0.2; // 20% of canvas height
+    ballRadius = canvasWidth * 0.02; // 2% of canvas width
     actuWindow = p5.windowWidth;
+    let ballSpeed = canvasWidth * 0.05;
 
 
     
@@ -45,10 +46,34 @@ const Canvas = () => {
     // leftPaddle = new Paddle(p5.width * 0.05 , p5.height * 0.4, paddleWidth, paddleHeight, 10, 10);
     // rightPaddle = new Paddle(p5.width * 0.95 - paddleWidth, p5.height * 0.4, paddleWidth, paddleHeight, 10, 10);
     // ball = new Ball(p5.width * 0.5, p5.height * 0.5, ballRadius, 0, 0);
+    leftPaddle = new Paddle(p5.width * 0.01 , p5.height * 0.4, paddleWidth, paddleHeight, 10, 10);
+    rightPaddle = new Paddle(p5.width * 0.99 - paddleWidth, p5.height * 0.4, paddleWidth, paddleHeight, 10, 10);
+    ball = new Ball(canvasWidth * 0.5, canvasHeight * 0.5, ballRadius, ballSpeed, ballSpeed);
     leftScore = 2;
     rightScore = 8;
     p5.frameRate(60);
   };
+
+  const handlePaddleMovement = (p5) => {
+    console.log("whach dkhel be3da");
+    // Move left paddle with W (up) and S (down)
+    if (p5.keyIsDown(87)) { // 'W' key
+      console.log("W");
+      leftPaddle.y = Math.max(0, leftPaddle.y - leftPaddle.speed); // Prevent moving out of bounds
+    }
+    if (p5.keyIsDown(83)) { // 'S' key
+      leftPaddle.y = Math.min(p5.height - leftPaddle.height, leftPaddle.y + leftPaddle.speed);
+    }
+  
+    // Move right paddle with UP and DOWN arrow keys
+    if (p5.keyIsDown(p5.UP_ARROW)) {
+      rightPaddle.y = Math.max(0, rightPaddle.y - rightPaddle.speed); // Prevent moving out of bounds
+    }
+    if (p5.keyIsDown(p5.DOWN_ARROW)) {
+      rightPaddle.y = Math.min(p5.height - rightPaddle.height, rightPaddle.y + rightPaddle.speed);
+    }
+  };
+  
 
   const draw = (p5) => {
     p5.background('#000000');
@@ -70,7 +95,7 @@ const Canvas = () => {
     }
     // p5.strokeWeight(5); // Border thickness
     // canvas.style('border', '10px solid red');
-    
+    // handlePaddleMovement(p5);
     // Draw the border rectangle
     // p5.rect(0, 0, p5.width, p5.height);
 
@@ -80,21 +105,24 @@ const Canvas = () => {
     p5.textSize(p5.width * 0.1); // Text size relative to canvas width
     p5.textAlign(p5.CENTER, p5.CENTER); // Center align text
     // draw the paddles and the ball
-    leftPaddle = new Paddle(p5.width * 0.01 , p5.height * 0.4, paddleWidth, paddleHeight, 10, 10);
-    rightPaddle = new Paddle(p5.width * 0.99 - paddleWidth, p5.height * 0.4, paddleWidth, paddleHeight, 10, 10);
-    ball = new Ball(p5.width * 0.5, p5.height * 0.5, ballRadius, 0, 0);
+    // leftPaddle = new Paddle(p5.width * 0.01 , p5.height * 0.4, paddleWidth, paddleHeight, 1, 10);
+    // rightPaddle = new Paddle(p5.width * 0.99 - paddleWidth, p5.height * 0.4, paddleWidth, paddleHeight, 1, 10);
+    // ball = new Ball(p5.width * 0.5, p5.height * 0.5, ballRadius, 0, 0);
 
     // Draw the scores
     p5.text(leftScore, p5.width * 0.25, p5.height * 0.2); // Left score at 25% width
     p5.text(rightScore, p5.width * 0.75, p5.height * 0.2); // Right score at 75% width
+    // paddleWidth = p5.width * 0.01;
 
-
+    handlePaddleMovement(p5);
+    // paddleWidth = p5.width * 0.01;
     leftPaddle.show(p5);
     rightPaddle.show(p5);
     ball.show(p5);
   };
 
   const keyPressed = (p5) => {
+    // handlePaddleMovement(p5);
     // Handle player movement with arrow keys
     // if (p5.keyIsDown(p5.LEFT_ARROW)) playerX -= playerSpeed;
     // if (p5.keyIsDown(p5.RIGHT_ARROW)) playerX += playerSpeed;
@@ -106,22 +134,37 @@ const Canvas = () => {
     // Adjust the canvas size dynamically on window resize
     let modulo = 0.4;
     const canvasWidth = p5.windowWidth * 0.6; // 80% of window width
-    if (actuWindow > p5.windowWidth)
-    {
-      console.log ("weyawrahi m9ewda");
-      if (modulo < 0.6)
-        modulo += 0.1;
-    }
-    else
-    {
-      if (modulo > 0.4)
-        modulo -= 0.1;
-    }
+    // const radiusBall = canvasWidth * 0.02;
+    // const speedBall = canvasWidth * 0.05;
+    // if (actuWindow > p5.windowWidth)
+    // {
+    //   console.log ("weyawrahi m9ewda");
+    //   if (modulo < 0.6)
+    //     modulo += 0.1;
+    // }
+    // else
+    // {
+    //   if (modulo > 0.4)
+    //     modulo -= 0.1;
+    // }
     const canvasHeight = p5.windowHeight * modulo; // 60% of window height
+    leftPaddle.x = canvasWidth * 0.01;
+    // leftPaddle.x = p5.width * 0.05;
+    // leftPaddle.y = p5.height * 0.4 - (canvasHeight * 0.2 / 2);
+    // leftPaddle.y = 
+    paddleWidth = canvasWidth * 0.01;
+    rightPaddle.x = canvasWidth * 0.99 - paddleWidth;
+    // rightPaddle.y = canvasWidth * 0.4 - (canvasHeight * 0.2 / 2);
+    leftPaddle.width = canvasWidth * 0.01;
+    rightPaddle.width = canvasWidth * 0.01;
+    ball.radius = canvasWidth * 0.02;;
+    ball.x = canvasWidth * 0.5;
+    ball.y = canvasHeight * 0.5;
+    
     p5.resizeCanvas(canvasWidth, canvasHeight);
   };
 
-  return <Sketch setup={setup} draw={draw} windowResized={windowResized} keyPressed={keyPressed} />;
+  return <Sketch setup={setup}  windowResized={windowResized} draw={draw} keyPressed={keyPressed} />;
 };
 
 export default Canvas;
